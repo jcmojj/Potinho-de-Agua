@@ -73,7 +73,7 @@ unsigned long sleep_timer_counter = millis();
   // create menu
   // menu element count - last element id
   // this value must be the same as the last menu element
-  #define _LCDML_DISP_cnt    26
+  #define _LCDML_DISP_cnt    33
   
   // LCDML_root        => layer 0 
   // LCDML_root_X      => layer 1 
@@ -85,65 +85,72 @@ unsigned long sleep_timer_counter = millis();
   LCDML_DISP_initParam(_LCDML_DISP_cnt); // enable parameters (needs one byte per menu element)
 
   LCDML_DISP_add      (0  , _LCDML_G1  , LCDML_root        , 1  , "MyKidPet"        , LCDML_FUNC);
+ 
+
+  LCDML_DISP_add      (1  , _LCDML_G1  , LCDML_root_1      , 1  , "Adiciona"        , LCDML_FUNC_adiciona);
+  LCDML_DISP_add      (2  , _LCDML_G1  , LCDML_root_1      , 2  , "Apaga"           , LCDML_FUNC_apaga);
+  LCDML_DISP_add      (3  , _LCDML_G1  , LCDML_root_1      , 3  , "Inverte"         , LCDML_FUNC_apaga);
+  
+  LCDML_DISP_add      (4  , _LCDML_G1  , LCDML_root        , 2  , "Pets"            , LCDML_FUNC);
+  LCDML_DISP_add      (5  , _LCDML_G1  , LCDML_root_2      , 1  , "Info"            , LCDML_FUNC);
+  LCDML_DISP_add      (6  , _LCDML_G1  , LCDML_root_2_1    , 1  , "Ultima vez"      , LCDML_FUNC_ultvez);
+  LCDML_DISP_add      (7  , _LCDML_G1  , LCDML_root_2_1    , 2  , "Ultima hora"     , LCDML_FUNC_ulthor);  
+  LCDML_DISP_add      (8  , _LCDML_G1  , LCDML_root_2_1    , 3  , "Ultima sem."     , LCDML_FUNC_ultsem);  
+  LCDML_DISP_add      (9  , _LCDML_G1  , LCDML_root_2_1    , 4  , "Ultimo mes"      , LCDML_FUNC_ultmes);
+   
+  LCDML_DISP_addParam (10 , _LCDML_G1  , LCDML_root_2      , 2  ,                   , LCDML_FUNC_jump,  1); 
+  LCDML_DISP_addParam (11 , _LCDML_G2  , LCDML_root_2      , 3  ,                   , LCDML_FUNC_jump,  2);
+  LCDML_DISP_addParam (12 , _LCDML_G3  , LCDML_root_2      , 4  ,                   , LCDML_FUNC_jump,  3);  
+  LCDML_DISP_addParam (13 , _LCDML_G4  , LCDML_root_2      , 5  ,                   , LCDML_FUNC_jump,  4);
+  LCDML_DISP_addParam (14 , _LCDML_G5  , LCDML_root_2      , 6  ,                   , LCDML_FUNC_jump,  5);  
+
+  LCDML_DISP_add      (15 , _LCDML_G1  , LCDML_root        , 3  , "Dono"            , LCDML_FUNC);
+  LCDML_DISP_addParam (16 , _LCDML_G1  , LCDML_root_3      , 1  , "Celular"         , LCDML_FUNC_nome,  6);
+  LCDML_DISP_addParam (17 , _LCDML_G1  , LCDML_root_3      , 2  , "Email"           , LCDML_FUNC_nome,  7);
+  LCDML_DISP_addParam (18 , _LCDML_G1  , LCDML_root_3      , 3  , "Aniversario"     , LCDML_FUNC_niver, 6);
+  
+  LCDML_DISP_add      (19 , _LCDML_G1  , LCDML_root        , 4  , "Opcoes"          , LCDML_FUNC);
+  LCDML_DISP_add      (20 , _LCDML_G1  , LCDML_root_4      , 1  , "Modo"            , LCDML_FUNC);
+  LCDML_DISP_add      (21 , _LCDML_G1  , LCDML_root_4_1    , 1  , "Por Volume"      , LCDML_FUNC_volume);
+  LCDML_DISP_addParam (22 , _LCDML_G1  , LCDML_root_4_1    , 2  , "Por Horario"     , LCDML_FUNC_horario, 0);  
+  LCDML_DISP_add      (23 , _LCDML_G1  , LCDML_root_4      , 2  , "Informacao"      , LCDML_FUNC);
+  LCDML_DISP_addParam (24 , _LCDML_G1  , LCDML_root_4_2    , 1  , "Envia SMS"       , LCDML_FUNC_horario, 1);
+  LCDML_DISP_addParam (25 , _LCDML_G1  , LCDML_root_4_2    , 2  , "Envia Email"     , LCDML_FUNC_horario, 2);
+  LCDML_DISP_addParam (26 , _LCDML_G1  , LCDML_root_4_2    , 3  , "Envia ambos"     , LCDML_FUNC_horario, 3);
+  LCDML_DISP_add      (27 , _LCDML_G1  , LCDML_root_4      , 3  , "Rede"            , LCDML_FUNC);
+  LCDML_DISP_add      (28 , _LCDML_G1  , LCDML_root_4_3    , 1  , "Escolha rede"    , LCDML_FUNC_redes);
+  LCDML_DISP_addParam (29 , _LCDML_G1  , LCDML_root_4_3    , 2  , "Defina senha"    , LCDML_FUNC_nome, 8); 
+      
+  LCDML_DISP_add      (30 , _LCDML_G1  , LCDML_root        , 5  , "Ajustes"         , LCDML_FUNC);
+  LCDML_DISP_addParam (31 , _LCDML_G1  , LCDML_root_5      , 1  , "Brilho"          , LCDML_FUNC_ajustes,1);
+  LCDML_DISP_addParam (32 , _LCDML_G1  , LCDML_root_5      , 2  , "Constraste"      , LCDML_FUNC_ajustes,2);
+  LCDML_DISP_addParam (33 , _LCDML_G1  , LCDML_root_5      , 3  , "Tela acesa"      , LCDML_FUNC_ajustes,3);
+
+
+
+
+/*
+  LCDML_DISP_add      (34 , _LCDML_G1  , LCDML_root_10     , 5  , "Bebeu"      , LCDML_FUNC_ultvez);
+
+  
+  LCDML_DISP_add      (24 , _LCDML_G1  , LCDML_root_4      , 3  , "Rede"            , LCDML_FUNC);
+  LCDML_DISP_add      (29 , _LCDML_G6  , LCDML_root       , 10  , ""                , LCDML_FUNC);  
+  LCDML_DISP_add      (30 , _LCDML_G1  , LCDML_root_10     , 1  , "Nome"            , LCDML_FUNC_nome);
+  LCDML_DISP_add      (31 , _LCDML_G1  , LCDML_root_10     , 2  , "Raca"            , LCDML_FUNC_raca);
+  LCDML_DISP_add      (32 , _LCDML_G1  , LCDML_root_10     , 3  , "Aniversario"     , LCDML_FUNC_niver);
+  LCDML_DISP_add      (33 , _LCDML_G1  , LCDML_root_10     , 4  , "Tag"             , LCDML_FUNC);
+ 
+  
+  LCDML_DISP_addParam (38 , _LCDML_G1  , LCDML_root_10_4    , 1  , "Vermelho"       , LCDML_FUNC_tag,1);  
+  LCDML_DISP_addParam (39 , _LCDML_G1  , LCDML_root_10_4    , 2  , "Azul"           , LCDML_FUNC_tag,2);  
+  LCDML_DISP_addParam (40 , _LCDML_G1  , LCDML_root_10_4    , 3  , "Verde"          , LCDML_FUNC_tag,3);  
+  LCDML_DISP_addParam (41 , _LCDML_G1  , LCDML_root_10_4    , 4  , "Branco"         , LCDML_FUNC_tag,4);  
+  LCDML_DISP_addParam (42 , _LCDML_G1  , LCDML_root_10_4    , 5  , "Preto"          , LCDML_FUNC_tag,5);
+
   LCDML_DISP_add      (1  , _LCDML_G1  , LCDML_root_1      , 1  , "Ultima vez"      , LCDML_FUNC_ultvez);
   LCDML_DISP_add      (2  , _LCDML_G1  , LCDML_root_1      , 2  , "Ultima hora"     , LCDML_FUNC_ulthor);  
   LCDML_DISP_add      (3  , _LCDML_G1  , LCDML_root_1      , 3  , "Ultima sem."     , LCDML_FUNC_ultsem);  
-  LCDML_DISP_add      (4  , _LCDML_G1  , LCDML_root_1      , 4  , "Ultimo mes"      , LCDML_FUNC_ultmes);
-  
-  LCDML_DISP_add      (5  , _LCDML_G1  , LCDML_root_1      , 5  , "Pet"             , LCDML_FUNC);
-  LCDML_DISP_add      (6  , _LCDML_G1  , LCDML_root_1_5    , 1  , "Adiciona"        , LCDML_FUNC_adiciona);
-  LCDML_DISP_add      (7  , _LCDML_G1  , LCDML_root_1_5    , 2  , "Apaga"           , LCDML_FUNC);
-  LCDML_DISP_addParam (8  , _LCDML_G1  , LCDML_root_1_5_2  , 1  , "1"               , LCDML_FUNC_apaga, 1); 
-  LCDML_DISP_addParam (9  , _LCDML_G2  , LCDML_root_1_5_2  , 2  , "2"               , LCDML_FUNC_apaga, 2); 
-  LCDML_DISP_addParam (10 , _LCDML_G3  , LCDML_root_1_5_2  , 3  , "3"               , LCDML_FUNC_apaga, 3);  
-  LCDML_DISP_addParam (11 , _LCDML_G4  , LCDML_root_1_5_2  , 4  , "4"               , LCDML_FUNC_apaga, 4);
-  LCDML_DISP_addParam (12 , _LCDML_G5  , LCDML_root_1_5_2  , 5  , "5"               , LCDML_FUNC_apaga, 5);
-
-  LCDML_DISP_addParam (13 , _LCDML_G1  , LCDML_root        , 2  , "Buddy"           , LCDML_FUNC_jump,  1); 
-  LCDML_DISP_addParam (14 , _LCDML_G2  , LCDML_root        , 3  , "Tati"            , LCDML_FUNC_jump,  2);
-  LCDML_DISP_addParam (15 , _LCDML_G3  , LCDML_root        , 4  , "Belinha"         , LCDML_FUNC_jump,  3);  
-  LCDML_DISP_addParam (16 , _LCDML_G4  , LCDML_root        , 5  , "Pepa"            , LCDML_FUNC_jump,  4);
-  LCDML_DISP_addParam (17 , _LCDML_G5  , LCDML_root        , 6  , "Nala"            , LCDML_FUNC_jump,  5);
-  
-  LCDML_DISP_add      (26 , _LCDML_G6  , LCDML_root       , 10  , ""                , LCDML_FUNC);  
-  LCDML_DISP_add      (18 , _LCDML_G1  , LCDML_root_10     , 1  , "Nome"            , LCDML_FUNC_nome);
-  LCDML_DISP_add      (19 , _LCDML_G1  , LCDML_root_10     , 2  , "Raca"            , LCDML_FUNC_raca);
-  LCDML_DISP_add      (20 , _LCDML_G1  , LCDML_root_10     , 3  , "Aniversario"     , LCDML_FUNC_niver);
-  LCDML_DISP_add      (21 , _LCDML_G1  , LCDML_root_10     , 4  , "Tag"             , LCDML_FUNC_tag);
-  LCDML_DISP_add      (22 , _LCDML_G1  , LCDML_root_10     , 5  , "Ultima vez"      , LCDML_FUNC_ultvez);
-  LCDML_DISP_add      (23 , _LCDML_G1  , LCDML_root_10     , 6  , "Ultima hora"     , LCDML_FUNC_ulthor);  
-  LCDML_DISP_add      (24 , _LCDML_G1  , LCDML_root_10     , 7  , "Ultima sem."     , LCDML_FUNC_ultsem);  
-  LCDML_DISP_add      (25 , _LCDML_G1  , LCDML_root_10     , 8  , "Ultimo mes"      , LCDML_FUNC_ultmes); 
-  
- /* LCDML_DISP_addParam (26 , _LCDML_G1  , LCDML_root_10_4    , 1  , "Vermelho"       , LCDML_FUNC_tag,1);  
-  LCDML_DISP_addParam (27 , _LCDML_G1  , LCDML_root_10_4    , 2  , "Azul"           , LCDML_FUNC_tag,2);  
-  LCDML_DISP_addParam (28 , _LCDML_G1  , LCDML_root_10_4    , 3  , "Verde"          , LCDML_FUNC_tag,3);  
-  LCDML_DISP_addParam (29 , _LCDML_G1  , LCDML_root_10_4    , 4  , "Branco"         , LCDML_FUNC_tag,4);  
-  LCDML_DISP_addParam (30 , _LCDML_G1  , LCDML_root_10_4    , 5  , "Preto"          , LCDML_FUNC_tag,5);
-
-
- /* LCDML_DISP_add      (31 , _LCDML_G1  , LCDML_root        , 7  , "Dono"            , LCDML_FUNC);
-  LCDML_DISP_addParam (32 , _LCDML_G1  , LCDML_root_7      , 1  , "Celular"         , LCDML_FUNC_nome,  6);
-  LCDML_DISP_addParam (33 , _LCDML_G1  , LCDML_root_7      , 2  , "Email"           , LCDML_FUNC_nome,  7);
-  LCDML_DISP_addParam (34 , _LCDML_G1  , LCDML_root_7      , 3  , "Aniversario"     , LCDML_FUNC_niver, 6);
-  
-  LCDML_DISP_add      (35 , _LCDML_G1  , LCDML_root        , 8  , "Opcoes"          , LCDML_FUNC);
-  LCDML_DISP_add      (36 , _LCDML_G1  , LCDML_root_8      , 1  , "Modo"            , LCDML_FUNC);
-  LCDML_DISP_add      (37 , _LCDML_G1  , LCDML_root_8_1    , 1  , "Por Volume"      , LCDML_FUNC_volume);
-  LCDML_DISP_addParam (38 , _LCDML_G1  , LCDML_root_8_1    , 2  , "Por Horario"     , LCDML_FUNC_horario, 0);  
-  LCDML_DISP_add      (39 , _LCDML_G1  , LCDML_root_8      , 2  , "Informacao"      , LCDML_FUNC);
-  LCDML_DISP_addParam (40 , _LCDML_G1  , LCDML_root_8_2    , 1  , "Envia SMS"       , LCDML_FUNC_horario, 1);
-  LCDML_DISP_addParam (41 , _LCDML_G1  , LCDML_root_8_2    , 2  , "Envia Email"     , LCDML_FUNC_horario, 2);
-  LCDML_DISP_addParam (42 , _LCDML_G1  , LCDML_root_8_2    , 3  , "Envia ambos"     , LCDML_FUNC_horario, 3);
-  LCDML_DISP_add      (43 , _LCDML_G1  , LCDML_root_8      , 3  , "Rede"            , LCDML_FUNC);
-  LCDML_DISP_add      (44 , _LCDML_G1  , LCDML_root_8_3    , 1  , "Escolha rede"    , LCDML_FUNC_redes);
-  LCDML_DISP_addParam (45 , _LCDML_G1  , LCDML_root_8_3    , 2  , "Defina senha"    , LCDML_FUNC_nome, 8); 
-      
-  LCDML_DISP_add      (46 , _LCDML_G1  , LCDML_root       , 9   , "Ajustes"         , LCDML_FUNC);
-  LCDML_DISP_addParam (47 , _LCDML_G1  , LCDML_root_9     , 1   , "Brilho"          , LCDML_FUNC_ajustes,1);
-  LCDML_DISP_addParam (48 , _LCDML_G1  , LCDML_root_9     , 2   , "Constraste"      , LCDML_FUNC_ajustes,2);
-  LCDML_DISP_addParam (49 , _LCDML_G1  , LCDML_root_9     , 3   , "Tela acesa"      , LCDML_FUNC_ajustes,3);*/
-
+  LCDML_DISP_add      (4  , _LCDML_G1  , LCDML_root_1      , 4  , "Ultimo mes"      , LCDML_FUNC_ultmes);*/
     
   LCDML_DISP_createMenu(_LCDML_DISP_cnt);
 

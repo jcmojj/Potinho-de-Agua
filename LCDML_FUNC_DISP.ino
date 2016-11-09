@@ -252,14 +252,14 @@ void LCDML_DISP_loop_end(LCDML_FUNC_niver)
 void LCDML_DISP_setup(LCDML_FUNC_tag)
 // *********************************************************************
 {
-    cursor_position_cur = 1;
+   // cursor_position_cur = 1;
 }
 
 
 
 
 void LCDML_DISP_loop(LCDML_FUNC_tag)
-{ 
+{ /*
 // control
 // =====================================
   
@@ -286,16 +286,26 @@ if(LCDML_BUTTON_checkEnter()||LCDML_BUTTON_checkLeft()) {
    u8g.firstPage();
    do{  
       u8g.setFont( u8g_font_helvB08);
-
-      u8g.drawStr( cursor_position_cur*8 ,  9, F("X"));      
-      u8g.drawStr( 8 ,  9, F("Vermelho"));
-      u8g.drawStr( 8 , 18, F("Azul"));
-      u8g.drawStr( 8 , 18, F("Verde"));
-      u8g.drawStr( 8 , 18, F("Branco"));
-      u8g.drawStr( 8 , 18, F("Preto"));      
+      for ( int pos = 1; pos<6;pos++){ 
+      u8g.drawStr( 0 ,  cursor_position_cur*8, F("X"));
+      char buffer[9];
+      switch(pos){
+        case 1:  strncpy(buffer, "Vermelho", 8); break;
+        case 2:  strncpy(buffer, "Azul", 8); break;
+        case 3:  strncpy(buffer, "Verde", 8); break;
+        case 4:  strncpy(buffer, "Branco", 8); break;
+        case 5:  strncpy(buffer, "Preto", 8); break;
+       // case 2: buffer = "Azul"; break;
+       // case 3: buffer = "Verde"; break;
+       // case 4: buffer = "Branco"; break;
+       // case 5: buffer = "Preto"; break;
+              
+        }
+      u8g.drawStr( 8 ,  9*pos, buffer);
+      }
      
    }while ( u8g.nextPage() ); 
-
+*/  uint8_t param = LCDML_DISP_getParameter();  LCDML_DISP_funcend();
 }
 
 void LCDML_DISP_loop_end(LCDML_FUNC_tag)
@@ -424,18 +434,36 @@ void LCDML_DISP_loop_end(LCDML_FUNC_adiciona)
 void LCDML_DISP_setup(LCDML_FUNC_apaga)
 // *********************************************************************
 {
-  uint8_t param = LCDML_DISP_getParameter(); 
+
 }
 
 void LCDML_DISP_loop(LCDML_FUNC_apaga)
 { 
-      // check if any button is presed (enter, up, down, left, right)
-  if(LCDML_BUTTON_checkAny()) {         
+    LCDML.jumpToElement(18);        
     LCDML_DISP_funcend();
-  } 
+
 }
 
 void LCDML_DISP_loop_end(LCDML_FUNC_apaga)
+{
+}
+
+
+// *********************************************************************
+void LCDML_DISP_setup(LCDML_FUNC_pets)
+// *********************************************************************
+{
+
+}
+
+void LCDML_DISP_loop(LCDML_FUNC_pets)
+{ 
+    LCDML.jumpToElement(18);        
+    LCDML_DISP_funcend();
+
+}
+
+void LCDML_DISP_loop_end(LCDML_FUNC_pets)
 {
 }
 
