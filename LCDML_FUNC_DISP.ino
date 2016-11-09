@@ -71,8 +71,8 @@ void LCDML_DISP_setup(LCDML_FUNC_ajustes)
 void LCDML_DISP_loop(LCDML_FUNC_ajustes)
 {
 
-   // control
-  // =====================================
+// control
+// =====================================
   
 
 
@@ -141,15 +141,6 @@ u8g.setContrast(contraste);
 void LCDML_DISP_loop_end(LCDML_FUNC_ajustes)
 {
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -252,25 +243,71 @@ void LCDML_DISP_loop_end(LCDML_FUNC_niver)
 
 
 
+
+
+
+
+
 // *********************************************************************
 void LCDML_DISP_setup(LCDML_FUNC_tag)
 // *********************************************************************
 {
-
+    cursor_position_cur = 1;
 }
+
+
+
 
 void LCDML_DISP_loop(LCDML_FUNC_tag)
 { 
-      // check if any button is presed (enter, up, down, left, right)
-  if(LCDML_BUTTON_checkAny()) {         
-    LCDML_DISP_funcend();
-  } 
+// control
+// =====================================
+  
+if(LCDML_BUTTON_checkUp()){
+  LCDML_BUTTON_resetAll();
+  if(cursor_position_cur<6){cursor_position_cur--;}
+  LCDML_BACK_start(LCDML_BACKEND_menu); 
+}
+
+if(LCDML_BUTTON_checkDown()){
+  LCDML_BUTTON_resetAll();
+  if(cursor_position_cur>0){cursor_position_cur++;}
+  LCDML_BACK_start(LCDML_BACKEND_menu); 
+}
+
+if(LCDML_BUTTON_checkEnter()||LCDML_BUTTON_checkLeft()) {
+  LCDML_BUTTON_resetAll();   
+  LCDML_DISP_funcend();
+}
+
+     
+// display content
+// ==================   
+   u8g.firstPage();
+   do{  
+      u8g.setFont( u8g_font_helvB08);
+
+      u8g.drawStr( cursor_position_cur*8 ,  9, F("X"));      
+      u8g.drawStr( 8 ,  9, F("Vermelho"));
+      u8g.drawStr( 8 , 18, F("Azul"));
+      u8g.drawStr( 8 , 18, F("Verde"));
+      u8g.drawStr( 8 , 18, F("Branco"));
+      u8g.drawStr( 8 , 18, F("Preto"));      
+     
+   }while ( u8g.nextPage() ); 
+
 }
 
 void LCDML_DISP_loop_end(LCDML_FUNC_tag)
 {
 
 }
+
+
+
+
+
+
 
 
 
