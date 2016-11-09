@@ -58,89 +58,6 @@ uint8_t param;
 
 
 
-// *********************************************************************
-void LCDML_DISP_setup(LCDML_FUNC_ajustes)
-// *********************************************************************
-{
-  param = LCDML_DISP_getParameter();
- // Serial.print("Parameter: "); Serial.println(param);
- // t = 0;
-  cursor_position_cur = 0;
-}
-
-void LCDML_DISP_loop(LCDML_FUNC_ajustes)
-{
-
-// control
-// =====================================
-  
-
-
-if(LCDML_BUTTON_checkUp()){
-  LCDML_BUTTON_resetAll();
-  cursor_position_cur = 1;Serial.print("teste");
-  switch(param){
-     case 1: brilho=brilho+5; break;
-     case 2: contraste=contraste+5; break;
-     case 3: sleep=sleep+500; break;            
-  }
-  LCDML_BACK_start(LCDML_BACKEND_menu); 
-}
-
-if(LCDML_BUTTON_checkDown()){
-  LCDML_BUTTON_resetAll();
-  cursor_position_cur = 2;Serial.print("teste");
-  switch(param){
-     case 1: brilho=brilho-5; break;
-     case 2: contraste=contraste-5; break;
-     case 3: sleep=sleep-500; break;         
-  }
-  LCDML_BACK_start(LCDML_BACKEND_menu); 
-}
-
-if(LCDML_BUTTON_checkEnter()||LCDML_BUTTON_checkLeft()) {
-  LCDML_BUTTON_resetAll();   
-  LCDML_DISP_funcend();
-}
-
-  // atualização de valores
-  // =====================================
-
-analogWrite(backlight, brilho);
-u8g.setContrast(contraste);
-
-
-  // display value---------------------------------------------------------------------------------------->usar um buffer
-  // ==================
-     String temp;
-     switch(param){
-     case 1: temp = (float)brilho*100/255; temp+="%"; break;
-     case 2: temp = contraste; break;
-     case 3: temp = (float)sleep/1000; temp+="s"; break; 
-     }
-     
-  // display content
-  // ==================   
-   u8g.firstPage();
-   do{  
-      u8g.setFont( u8g_font_helvB08);
-      
-      u8g.drawStr( 28,10, F("MAIS"));
-      u8g.drawStr( 23,46, F("MENOS"));
-     // u8g.drawFrame(20,0,44,_LCDML_u8g_lcd_h); //vertical
-      u8g.drawFrame(20,0,44,12); //superior
-      u8g.drawFrame(20,_LCDML_u8g_lcd_h-12,44,12); //inferior
-      u8g.drawBox(38,12,8,24); // linha vertical
-
-     u8g.setPrintPos(0,29);
-     u8g.print(temp);          
-     
-   }while ( u8g.nextPage() ); 
-}
-
-void LCDML_DISP_loop_end(LCDML_FUNC_ajustes)
-{
-}
 
 
 
@@ -158,14 +75,16 @@ void LCDML_DISP_setup(LCDML_FUNC_jump)
 // *********************************************************************
 {
   uint8_t param = LCDML_DISP_getParameter();
-  Serial.print("Parameter: "); Serial.println(param);
+Serial.print("Parameter: "); Serial.println(param);
+Serial.print("a");
+if(param==31){LCDML.jumpToElement(6);}else{LCDML.jumpToElement(29);}
 
-    LCDML.jumpToElement(18);
 
 }
 
 void LCDML_DISP_loop(LCDML_FUNC_jump)
-{ 
+{Serial.print("t");
+  
 }
 
 void LCDML_DISP_loop_end(LCDML_FUNC_jump)
@@ -305,7 +224,7 @@ if(LCDML_BUTTON_checkEnter()||LCDML_BUTTON_checkLeft()) {
       }
      
    }while ( u8g.nextPage() ); 
-*/  uint8_t param = LCDML_DISP_getParameter();  LCDML_DISP_funcend();
+*/  //uint8_t param = LCDML_DISP_getParameter();  LCDML_DISP_funcend();
 }
 
 void LCDML_DISP_loop_end(LCDML_FUNC_tag)
@@ -431,22 +350,24 @@ void LCDML_DISP_loop_end(LCDML_FUNC_adiciona)
 
 
 // *********************************************************************
-void LCDML_DISP_setup(LCDML_FUNC_apaga)
+void LCDML_DISP_setup(LCDML_FUNC_apagainverte)
 // *********************************************************************
 {
 
 }
 
-void LCDML_DISP_loop(LCDML_FUNC_apaga)
+void LCDML_DISP_loop(LCDML_FUNC_apagainverte)
 { 
-    LCDML.jumpToElement(18);        
+   // LCDML.jumpToElement(18);        
     LCDML_DISP_funcend();
 
 }
 
-void LCDML_DISP_loop_end(LCDML_FUNC_apaga)
+void LCDML_DISP_loop_end(LCDML_FUNC_apagainverte)
 {
 }
+
+
 
 
 // *********************************************************************
@@ -458,7 +379,7 @@ void LCDML_DISP_setup(LCDML_FUNC_pets)
 
 void LCDML_DISP_loop(LCDML_FUNC_pets)
 { 
-    LCDML.jumpToElement(18);        
+ //   LCDML.jumpToElement(18);        
     LCDML_DISP_funcend();
 
 }
@@ -490,24 +411,7 @@ void LCDML_DISP_loop_end(LCDML_FUNC_volume)
 
 
 
-// *********************************************************************
-void LCDML_DISP_setup(LCDML_FUNC_horario)
-// *********************************************************************
-{
-  uint8_t param = LCDML_DISP_getParameter(); 
-}
 
-void LCDML_DISP_loop(LCDML_FUNC_horario)
-{ 
-      // check if any button is presed (enter, up, down, left, right)
-  if(LCDML_BUTTON_checkAny()) {         
-    LCDML_DISP_funcend();
-  } 
-}
-
-void LCDML_DISP_loop_end(LCDML_FUNC_horario)
-{
-}
 
 
 // *********************************************************************
@@ -533,44 +437,6 @@ void LCDML_DISP_loop_end(LCDML_FUNC_redes)
 
 
 // *********************************************************************
-void LCDML_DISP_setup(LCDML_FUNC_back_brilho)
-// *********************************************************************
-{
-  uint8_t param = LCDML_DISP_getParameter(); 
-}
-
-void LCDML_DISP_loop(LCDML_FUNC_back_brilho)
-{ 
-      // check if any button is presed (enter, up, down, left, right)
-  if(LCDML_BUTTON_checkAny()) {         
-    LCDML_DISP_funcend();
-  } 
-}
-
-void LCDML_DISP_loop_end(LCDML_FUNC_back_brilho)
-{
-}
-
-
-
-// *********************************************************************
-void LCDML_DISP_setup(LCDML_FUNC_back_contraste)
-// *********************************************************************
-{
-  uint8_t param = LCDML_DISP_getParameter(); 
-}
-
-void LCDML_DISP_loop(LCDML_FUNC_back_contraste)
-{ 
-      // check if any button is presed (enter, up, down, left, right)
-  if(LCDML_BUTTON_checkAny()) {         
-    LCDML_DISP_funcend();
-  } 
-}
-
-void LCDML_DISP_loop_end(LCDML_FUNC_back_contraste)
-{
-}
 
 
 
@@ -595,9 +461,138 @@ void LCDML_DISP_loop_end(LCDML_FUNC_back_tela)
 
 
 
+// *********************************************************************
+void LCDML_DISP_setup(LCDML_FUNC_hora)
+// *********************************************************************
+{
+  cursor_position_cur = 0;Serial.print("teste");
+}
+void LCDML_DISP_loop(LCDML_FUNC_hora)
+{ 
+  // Data:25 --> hora=1
+  // Hora:26 --> hora=0
+
+// control
+// =====================================
+boolean ehData = LCDML.getFunction()%2;Serial.print("teste2");
+t=rtc.getTime();Serial.print("teste3");
+uint16_t data[3]={t.hour*(1-ehData)+t.mon*ehData,t.min*(1-ehData)+t.date*ehData,t.sec*(1-ehData)+t.year*ehData};Serial.print("teste4");
+
+if(LCDML_BUTTON_checkUp()){LCDML_BUTTON_resetAll();data[cursor_position_cur]++;}
+if(LCDML_BUTTON_checkDown()){LCDML_BUTTON_resetAll();data[cursor_position_cur]--;}
+if(LCDML_BUTTON_checkRight()){LCDML_BUTTON_resetAll();if(cursor_position_cur<2){cursor_position_cur++;}else{LCDML_DISP_funcend();}}
+if(LCDML_BUTTON_checkLeft()){LCDML_BUTTON_resetAll();if(cursor_position_cur>0){cursor_position_cur--;}else{LCDML_DISP_funcend();}}
+  
+
+if(ehData){rtc.setDate(data[0],data[1],data[2]);}else{rtc.setTime(data[0],data[1],data[2]);}
+
+for(int i=0;i<3;i++){Serial.print(data[i]);}
+
+  // display content
+  // ==================   
+   u8g.firstPage();
+   do{  
+      u8g.setFont( u8g_font_helvB08);
+      for(byte i=0;i<3;i++){
+        u8g.setPrintPos(0,i*9);
+        u8g.print(data[i]);  
+      }            
+   }while ( u8g.nextPage() ); 
+
+// ========================================================================================================================================================================================================================================================================================
+}
+void LCDML_DISP_loop_end(LCDML_FUNC_hora)
+{
+  
+}
 
 
 
+
+
+// *********************************************************************
+void LCDML_DISP_setup(LCDML_FUNC_ajustes)
+// *********************************************************************
+{
+  param = LCDML_DISP_getParameter();
+ // Serial.print("Parameter: "); Serial.println(param);
+ // t = 0;
+  cursor_position_cur = 0;
+}
+
+void LCDML_DISP_loop(LCDML_FUNC_ajustes)
+{
+
+// control
+// =====================================
+  
+
+
+if(LCDML_BUTTON_checkUp()){
+  LCDML_BUTTON_resetAll();
+  cursor_position_cur = 1;
+  switch(param){
+     case 1: brilho=brilho+5; break;
+     case 2: contraste=contraste+5; break;
+     case 3: sleep=sleep+500; break;            
+  }
+  LCDML_BACK_start(LCDML_BACKEND_menu); 
+}
+
+if(LCDML_BUTTON_checkDown()){
+  LCDML_BUTTON_resetAll();
+  cursor_position_cur = 2;
+  switch(param){
+     case 1: brilho=brilho-5; break;
+     case 2: contraste=contraste-5; break;
+     case 3: sleep=sleep-500; break;         
+  }
+  LCDML_BACK_start(LCDML_BACKEND_menu); 
+}
+
+if(LCDML_BUTTON_checkEnter()||LCDML_BUTTON_checkLeft()) {
+  LCDML_BUTTON_resetAll();   
+  LCDML_DISP_funcend();
+}
+
+  // atualização de valores
+  // =====================================
+
+analogWrite(backlight, brilho);
+u8g.setContrast(contraste);
+
+
+  // display value---------------------------------------------------------------------------------------->usar um buffer
+  // ==================
+     String temp;
+     switch(param){
+     case 1: temp = (float)brilho*100/255; temp+="%"; break;
+     case 2: temp = contraste; break;
+     case 3: temp = (float)sleep/1000; temp+="s"; break; 
+     }
+     
+  // display content
+  // ==================   
+   u8g.firstPage();
+   do{  
+      u8g.setFont( u8g_font_helvB08);
+      
+      u8g.drawStr( 28,10, F("MAIS"));
+      u8g.drawStr( 23,46, F("MENOS"));
+     // u8g.drawFrame(20,0,44,_LCDML_u8g_lcd_h); //vertical
+      u8g.drawFrame(20,0,44,12); //superior
+      u8g.drawFrame(20,_LCDML_u8g_lcd_h-12,44,12); //inferior
+      u8g.drawBox(38,12,8,24); // linha vertical
+
+     u8g.setPrintPos(0,29);
+     u8g.print(temp);          
+     
+   }while ( u8g.nextPage() ); 
+}
+
+void LCDML_DISP_loop_end(LCDML_FUNC_ajustes)
+{
+}
 
 
 

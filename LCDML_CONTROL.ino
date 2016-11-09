@@ -49,21 +49,21 @@ void LCDML_BACK_stable(LCDML_BACKEND_control)
   # define _LCDML_CONTROL_serial_quit            'q'
 
 // Modo Joystick
-  #define _LCDML_CONTROL_analog_pin_VRX           A3
-  #define _LCDML_CONTROL_analog_pin_VRY           A4
+  #define _LCDML_CONTROL_analog_pin_VRX           A2
+  #define _LCDML_CONTROL_analog_pin_VRY           A3
   #define _LCDML_CONTROL_digital_pin_SW           A7
   // when you did not use a button set the value to zero
   #define _LCDML_CONTROL_analog_enter_min        false     // Button Enter
   #define _LCDML_CONTROL_analog_enter_max        true  
   #define _LCDML_CONTROL_analog_up_min           0     // Button Up
-  #define _LCDML_CONTROL_analog_up_max           400   
-  #define _LCDML_CONTROL_analog_down_min         700     // Button Down
+  #define _LCDML_CONTROL_analog_up_max           200   
+  #define _LCDML_CONTROL_analog_down_min         900     // Button Down
   #define _LCDML_CONTROL_analog_down_max         1030   
   #define _LCDML_CONTROL_analog_back_min         0     // Button Back
   #define _LCDML_CONTROL_analog_back_max         0   
   #define _LCDML_CONTROL_analog_left_min         0     // Button Left
-  #define _LCDML_CONTROL_analog_left_max         300   
-  #define _LCDML_CONTROL_analog_right_min        700     // Button Right
+  #define _LCDML_CONTROL_analog_left_max         200   
+  #define _LCDML_CONTROL_analog_right_min        900     // Button Right
   #define _LCDML_CONTROL_analog_right_max        1030
   #define _LCDML_CONTROL_analog_counter_max      5      // vezes antes de entrar ou sair
   byte _LCDML_CONTROL_analog_counter_enter = 0;         // contador
@@ -73,9 +73,9 @@ void LCDML_BACK_stable(LCDML_BACKEND_control)
 // setup
 void LCDML_CONTROL_setup()
 {
-  pinMode(A3,INPUT);
-  pinMode(A4,INPUT);
-  pinMode(A7,INPUT);
+  pinMode(_LCDML_CONTROL_analog_pin_VRX,INPUT);
+  pinMode(_LCDML_CONTROL_analog_pin_VRY,INPUT);
+  pinMode(_LCDML_CONTROL_digital_pin_SW,INPUT);
 }
 // *********************************************************************
 // loop
@@ -108,10 +108,10 @@ void LCDML_CONTROL_loop()
     if(_LCDML_CONTROL_analog_counter_quit == _LCDML_CONTROL_analog_counter_max){LCDML_BUTTON_quit(); _LCDML_CONTROL_analog_counter_quit = 0;}
         
     if (valueZ != _LCDML_CONTROL_analog_enter_max) { LCDML_BUTTON_enter(); _LCDML_CONTROL_analog_counter_enter=0; _LCDML_CONTROL_analog_counter_quit=0; sleep_timer_counter=millis();u8g.sleepOn(); analogWrite(backlight, brilho);}// Serial.print("Value Z:"); Serial.println(valueZ);}
-    if (valueY >= _LCDML_CONTROL_analog_up_min    && valueY <= _LCDML_CONTROL_analog_up_max)    { LCDML_BUTTON_up(); _LCDML_CONTROL_analog_counter_enter=0; _LCDML_CONTROL_analog_counter_quit=0; sleep_timer_counter=millis();u8g.sleepOn(); analogWrite(backlight, brilho);}//   Serial.print("Value Y:"); Serial.println(valueY);}
-    if (valueY >= _LCDML_CONTROL_analog_down_min  && valueY <= _LCDML_CONTROL_analog_down_max)  { LCDML_BUTTON_down(); _LCDML_CONTROL_analog_counter_enter=0; _LCDML_CONTROL_analog_counter_quit=0; sleep_timer_counter=millis();u8g.sleepOn(); analogWrite(backlight, brilho);}// Serial.print("Value Y:"); Serial.println(valueY);}
-    if (valueX >= _LCDML_CONTROL_analog_left_min  && valueX <= _LCDML_CONTROL_analog_left_max)  { LCDML_BUTTON_left();  _LCDML_CONTROL_analog_counter_enter=0; _LCDML_CONTROL_analog_counter_quit++; sleep_timer_counter=millis();u8g.sleepOn(); analogWrite(backlight, brilho);}// Serial.print("Value X:"); Serial.println(valueX);}
-    if (valueX >= _LCDML_CONTROL_analog_right_min && valueX <= _LCDML_CONTROL_analog_right_max) { LCDML_BUTTON_right();  _LCDML_CONTROL_analog_counter_enter++; _LCDML_CONTROL_analog_counter_quit=0; sleep_timer_counter=millis();u8g.sleepOn(); analogWrite(backlight, brilho);}//Serial.print("Value X:"); Serial.println(valueX);}
+    if (valueY >= _LCDML_CONTROL_analog_up_min    && valueY <= _LCDML_CONTROL_analog_up_max)    { LCDML_BUTTON_up(); _LCDML_CONTROL_analog_counter_enter=0; _LCDML_CONTROL_analog_counter_quit=0; sleep_timer_counter=millis();u8g.sleepOn();}// analogWrite(backlight, brilho);   Serial.print("Value Y:"); Serial.println(valueY);}
+    if (valueY >= _LCDML_CONTROL_analog_down_min  && valueY <= _LCDML_CONTROL_analog_down_max)  { LCDML_BUTTON_down(); _LCDML_CONTROL_analog_counter_enter=0; _LCDML_CONTROL_analog_counter_quit=0; sleep_timer_counter=millis();u8g.sleepOn();}// analogWrite(backlight, brilho); Serial.print("Value Y:"); Serial.println(valueY);}
+    if (valueX >= _LCDML_CONTROL_analog_left_min  && valueX <= _LCDML_CONTROL_analog_left_max)  { LCDML_BUTTON_left();  _LCDML_CONTROL_analog_counter_enter=0; _LCDML_CONTROL_analog_counter_quit++; sleep_timer_counter=millis();u8g.sleepOn();}// analogWrite(backlight, brilho); Serial.print("Value X:"); Serial.println(valueX);}
+    if (valueX >= _LCDML_CONTROL_analog_right_min && valueX <= _LCDML_CONTROL_analog_right_max) { LCDML_BUTTON_right();  _LCDML_CONTROL_analog_counter_enter++; _LCDML_CONTROL_analog_counter_quit=0; sleep_timer_counter=millis();u8g.sleepOn();}// analogWrite(backlight, brilho); Serial.print("Value X:"); Serial.println(valueX);}
   }
 }
 // *********************************************************************
