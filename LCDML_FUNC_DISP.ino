@@ -465,7 +465,7 @@ void LCDML_DISP_loop_end(LCDML_FUNC_back_tela)
 void LCDML_DISP_setup(LCDML_FUNC_hora)
 // *********************************************************************
 {
-  cursor_position_cur = 0;Serial.print("teste");
+  cursor_position_cur = 0;
 }
 void LCDML_DISP_loop(LCDML_FUNC_hora)
 { 
@@ -474,19 +474,39 @@ void LCDML_DISP_loop(LCDML_FUNC_hora)
 
 // control
 // =====================================
-boolean ehData = LCDML.getFunction()%2;Serial.print("teste2");
-t=rtc.getTime();Serial.print("teste3");
-uint16_t data[3]={t.hour*(1-ehData)+t.mon*ehData,t.min*(1-ehData)+t.date*ehData,t.sec*(1-ehData)+t.year*ehData};Serial.print("teste4");
+boolean ehData = LCDML.getFunction()%2;
+t=rtc.getTime();
+byte data[3]={t.hour*(1-ehData)+t.mon*ehData,t.min*(1-ehData)+t.date*ehData,t.sec*(1-ehData)+t.year*ehData};
 
 if(LCDML_BUTTON_checkUp()){LCDML_BUTTON_resetAll();data[cursor_position_cur]++;}
 if(LCDML_BUTTON_checkDown()){LCDML_BUTTON_resetAll();data[cursor_position_cur]--;}
 if(LCDML_BUTTON_checkRight()){LCDML_BUTTON_resetAll();if(cursor_position_cur<2){cursor_position_cur++;}else{LCDML_DISP_funcend();}}
 if(LCDML_BUTTON_checkLeft()){LCDML_BUTTON_resetAll();if(cursor_position_cur>0){cursor_position_cur--;}else{LCDML_DISP_funcend();}}
   
+/*if(ehData){rtc.setDate(data[0],data[1],data[2]);}else{rtc.setTime(data[0],data[1],data[2]);}
+t=rtc.getTime();
+data[0]=t.hour*(1-ehData)+t.mon*ehData;
+data[1]=t.min*(1-ehData)+t.date*ehData;
+data[2]=t.sec*(1-ehData)+t.year*ehData;*/
 
-if(ehData){rtc.setDate(data[0],data[1],data[2]);}else{rtc.setTime(data[0],data[1],data[2]);}
 
-for(int i=0;i<3;i++){Serial.print(data[i]);}
+
+  //buffer[0]=(data[0]>>8)&&0xff;
+ // buffer[1]=data[0]&&0xff;
+//  buffer[2]=(ehData?"/":":");
+ // strcpy(buffer, (byte)data[0]);
+ // strcat(buffer,ehData?"/":":");
+ // strcat(buffer,data[1]);
+  //strcat(buffer,ehData?"/":":");
+  //strcat(buffer,data[2]);
+  //strcat(buffer,'\n');
+
+//Serial.print("buffer");
+//for(int i=0;i<12;i++){Serial.print(buffer[i]);}Serial.println(")");
+  
+Serial.print(cursor_position_cur);Serial.print(")");
+for(int i=0;i<3;i++){Serial.print(data[i]);Serial.print("-");}
+Serial.println("");
 
   // display content
   // ==================   
@@ -494,8 +514,10 @@ for(int i=0;i<3;i++){Serial.print(data[i]);}
    do{  
       u8g.setFont( u8g_font_helvB08);
       for(byte i=0;i<3;i++){
-        u8g.setPrintPos(0,i*9);
-        u8g.print(data[i]);  
+        u8g.setPrintPos(i*3*6,9+i*9);
+        u8g.print(data[i]);
+        u8g.setPrintPos((i*3-1)*6,9+i*9);
+        u8g.print(F(":"));  
       }            
    }while ( u8g.nextPage() ); 
 

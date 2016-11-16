@@ -22,9 +22,10 @@
   #include <DS3231.h>
   DS3231  rtc(SDA, SCL); // SDA=A4  - SCL=A5
   Time  t;
+  char  buffer[20];
   
   // lib config
-  #define _LCDML_DISP_cfg_button_press_time          200    // button press time in ms
+  #define _LCDML_DISP_cfg_button_press_time          300    // button press time in ms
 
 // *********************************************************************
 // U8GLIB
@@ -81,7 +82,7 @@ unsigned long sleep_timer_counter = millis();
   // create menu
   // menu element count - last element id
   // this value must be the same as the last menu element
-  #define _LCDML_DISP_cnt    36
+  #define _LCDML_DISP_cnt    38
   
   // LCDML_root        => layer 0 
   // LCDML_root_X      => layer 1 
@@ -165,6 +166,7 @@ unsigned long sleep_timer_counter = millis();
   {  
     pinMode(backlight,OUTPUT);
     analogWrite(backlight, 80);
+    rtc.begin();
     // serial init; only be needed if serial control is used 
     while(!Serial);                    // wait until serial ready
     Serial.begin(9600);                // start serial    
